@@ -1,0 +1,115 @@
+.industries__heading {
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.industries__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.industries__row {
+  position: relative;
+  padding: 36px 0;
+}
+
+.industries__row--end {
+  padding: 0;
+  height: 1px;
+}
+
+.industries__divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.industries__row-grid {
+  display: grid;
+  grid-template-columns: 80px 1.4fr 2fr auto;
+  align-items: center;
+  gap: 32px;
+  transition: transform var(--duration-base) var(--ease-out-quart);
+}
+
+.industries__row:hover .industries__row-grid {
+  transform: translateX(8px);
+}
+
+.industries__num {
+  color: var(--color-text-muted);
+}
+
+.industries__title {
+  font-size: clamp(26px, 2.4vw, 36px);
+}
+
+.industries__body {
+  max-width: 460px;
+}
+
+.industries__chev {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: border-color var(--duration-base) ease,
+    color var(--duration-base) ease,
+    transform var(--duration-base) var(--ease-out-quart);
+}
+
+.industries__row:hover .industries__chev {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateX(6px);
+}
+
+@media (max-width: 880px) {
+  .industries__row-grid {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "num title chev"
+      "body body body";
+    gap: 14px 20px;
+  }
+  .industries__num {
+    grid-area: num;
+  }
+  .industries__title {
+    grid-area: title;
+  }
+  .industries__body {
+    grid-area: body;
+  }
+  .industries__chev {
+    grid-area: chev;
+  }
+}
+
+@media (max-width: 480px) {
+  .industries__row-grid {
+    grid-template-areas:
+      "num chev"
+      "title title"
+      "body body";
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+  .industries__title {
+    font-size: clamp(20px, 5.5vw, 26px);
+  }
+  .industries__row {
+    padding: 28px 0;
+  }
+}

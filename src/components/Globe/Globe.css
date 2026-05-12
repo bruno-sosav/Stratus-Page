@@ -1,0 +1,266 @@
+/* ==========================================================
+   Globe section — large dot-globe with whirl rings.
+   Canvas owns the planet itself; the orbital rings are CSS.
+========================================================== */
+
+.globe {
+  position: relative;
+  overflow: hidden;
+}
+
+.globe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 50% 50%,
+      rgba(159, 232, 255, 0.05),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+.globe__container {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  position: relative;
+}
+
+.globe__heading {
+  /* Match other content sections (Philosophy/Services/Industries/Team/Product) */
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ----------------------------------------------------------
+   Stage — square viewport that holds the canvas + whirl rings.
+   The canvas takes ~78% (set in JS); rings extend to 100%.
+---------------------------------------------------------- */
+.globe__stage {
+  position: relative;
+  width: min(720px, 92vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  /* Heading is left-aligned; the planet itself stays centered */
+  align-self: center;
+}
+
+.globe__canvas {
+  position: relative;
+  z-index: 3;
+  display: block;
+}
+
+/* Soft glow under/behind the planet */
+.globe__glow {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(56, 189, 248, 0.18) 0%,
+    rgba(159, 232, 255, 0.08) 35%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  z-index: 1;
+  animation: globeGlow 8s ease-in-out infinite;
+}
+
+@keyframes globeGlow {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* ----------------------------------------------------------
+   Whirl rings — 4 concentric layers spinning at different
+   speeds. Each one carries a different visual weight so the
+   composition reads as orbital, not just rotating circles.
+---------------------------------------------------------- */
+.globe__whirl {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Outermost — solid ring with a node orbiting */
+.globe__whirl--outer {
+  inset: 0;
+  border: 1px solid rgba(240, 237, 232, 0.05);
+  border-top-color: rgba(159, 232, 255, 0.4);
+  animation: whirlSpin 28s linear infinite;
+}
+
+/* Mid — dashed faint ring counter-rotating */
+.globe__whirl--mid {
+  inset: 6%;
+  border: 1px dashed rgba(240, 237, 232, 0.07);
+  animation: whirlSpin 60s linear infinite reverse;
+}
+
+/* Accent — bright partial arc, fast */
+.globe__whirl--accent {
+  inset: 2%;
+  border: 1px solid transparent;
+  border-right-color: rgba(159, 232, 255, 0.35);
+  border-bottom-color: rgba(159, 232, 255, 0.1);
+  animation: whirlSpin 14s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(159, 232, 255, 0.25));
+}
+
+/* Inner — closer to the globe, warm hint */
+.globe__whirl--inner {
+  inset: 11%;
+  border: 1px solid rgba(240, 237, 232, 0.04);
+  border-left-color: rgba(201, 169, 110, 0.3);
+  animation: whirlSpin 22s linear infinite reverse;
+}
+
+/* Orbital nodes that travel with the ring */
+.globe__whirl-node {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9fe8ff;
+  box-shadow:
+    0 0 14px rgba(159, 232, 255, 0.8),
+    0 0 28px rgba(159, 232, 255, 0.4);
+}
+
+.globe__whirl-node--warm {
+  background: #c9a96e;
+  box-shadow:
+    0 0 12px rgba(201, 169, 110, 0.6),
+    0 0 22px rgba(201, 169, 110, 0.3);
+  width: 6px;
+  height: 6px;
+  top: 50%;
+  left: -3px;
+  transform: translateY(-50%);
+}
+
+@keyframes whirlSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ----------------------------------------------------------
+   Legend below the globe
+---------------------------------------------------------- */
+.globe__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  padding: 14px 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-self: center;
+}
+
+.globe__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.globe__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.globe__legend-dot--land {
+  background: var(--color-text-primary);
+  box-shadow: 0 0 6px rgba(240, 237, 232, 0.4);
+}
+
+.globe__legend-dot--live {
+  background: #9fe8ff;
+  box-shadow:
+    0 0 8px rgba(159, 232, 255, 0.7),
+    0 0 16px rgba(159, 232, 255, 0.3);
+  position: relative;
+}
+
+.globe__legend-dot--live::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(159, 232, 255, 0.45);
+  animation: legendPulse 2s ease-out infinite;
+}
+
+@keyframes legendPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.globe__legend-meta {
+  color: var(--color-text-muted);
+  letter-spacing: 0.18em;
+}
+
+/* ----------------------------------------------------------
+   Responsive
+---------------------------------------------------------- */
+@media (max-width: 880px) {
+  .globe__container {
+    gap: 40px;
+  }
+  .globe__stage {
+    width: min(560px, 96vw);
+  }
+  .globe__legend {
+    padding: 12px 20px;
+    gap: 18px;
+  }
+  .globe__legend li {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 520px) {
+  .globe__legend {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: var(--radius-md);
+  }
+}

@@ -1,0 +1,268 @@
+.philosophy {
+  position: relative;
+}
+
+.philosophy__heading {
+  max-width: 880px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.philosophy__heading .eyebrow {
+  margin-bottom: 4px;
+}
+
+.philosophy__blocks {
+  display: flex;
+  flex-direction: column;
+}
+
+.philosophy__block {
+  position: relative;
+  padding: 64px 0;
+}
+
+.philosophy__divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.philosophy__block-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.philosophy__block-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+}
+
+.philosophy__block-eyebrow {
+  color: var(--color-text-muted);
+  letter-spacing: 0.2em;
+}
+
+.philosophy__block-title {
+  line-height: 1.1;
+}
+
+.philosophy__visual {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 360px;
+  width: 100%;
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.04),
+    rgba(201, 169, 110, 0.02)
+  );
+  overflow: hidden;
+}
+
+/* ---------- Orbit visual ---------- */
+.vfx-orbit {
+  position: relative;
+  width: 80%;
+  height: 80%;
+}
+
+.vfx-orbit__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  box-shadow: 0 0 24px rgba(240, 237, 232, 0.6);
+}
+
+.vfx-orbit__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 50%;
+  animation: vfxOrbitSpin 14s linear infinite;
+}
+
+.vfx-orbit__ring--1 {
+  inset: 18%;
+  animation-duration: 8s;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.vfx-orbit__ring--2 {
+  inset: 4%;
+  animation-duration: 16s;
+  animation-direction: reverse;
+  border-color: rgba(201, 169, 110, 0.25);
+}
+
+.vfx-orbit__ring--3 {
+  inset: 32%;
+  animation-duration: 22s;
+  border-style: solid;
+  border-color: var(--color-border);
+}
+
+.vfx-orbit__satellite {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+}
+
+.vfx-orbit__satellite--warm {
+  background: var(--color-accent-warm);
+  box-shadow: 0 0 12px var(--color-accent-warm);
+  width: 6px;
+  height: 6px;
+}
+
+@keyframes vfxOrbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Grid visual ---------- */
+.vfx-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 70%;
+  height: 70%;
+}
+
+.vfx-grid__cell {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 4px;
+  animation: vfxGridPulse 3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.08s);
+}
+
+.vfx-grid__cell:nth-child(odd) {
+  background: rgba(201, 169, 110, 0.06);
+  border-color: rgba(201, 169, 110, 0.18);
+}
+
+@keyframes vfxGridPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Bars visual ---------- */
+.vfx-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 70%;
+}
+
+.vfx-bars__bar {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  animation: vfxBarSweep 3.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.15s);
+  width: calc(70% + (var(--i) * 4%));
+}
+
+@keyframes vfxBarSweep {
+  0% { transform: translateX(-30%) scaleX(0.4); opacity: 0.3; }
+  50% { transform: translateX(0%) scaleX(1); opacity: 1; }
+  100% { transform: translateX(30%) scaleX(0.4); opacity: 0.3; }
+}
+
+/* ---------- Pulse visual ---------- */
+.vfx-pulse {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  display: grid;
+  place-items: center;
+}
+
+.vfx-pulse__core {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-gradient);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+  z-index: 2;
+}
+
+.vfx-pulse__ring {
+  position: absolute;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: vfxPulse 3.5s ease-out infinite;
+}
+
+.vfx-pulse__ring--delay {
+  animation-delay: 1.7s;
+  border-color: var(--color-accent-warm);
+}
+
+@keyframes vfxPulse {
+  0% { transform: scale(0.4); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .philosophy__block-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .philosophy__visual {
+    margin-left: 0;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 520px) {
+  .philosophy__block {
+    padding: 44px 0;
+  }
+  .philosophy__visual {
+    display: none;
+  }
+  .philosophy__block-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
