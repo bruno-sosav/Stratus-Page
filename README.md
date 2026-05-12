@@ -1,6 +1,6 @@
 # Stratus Industries — Landing Page
 
-Landing page de **Stratus Industries** — empresa ficticia de software empresarial y SaaS, fundada en 2019. Construida con React + Vite, animaciones con GSAP + ScrollTrigger y smooth scroll con Lenis. Sin librerías de UI (todo CSS propio).
+Landing page de **Stratus Industries** — empresa de software empresarial y SaaS, fundada en 2025. Construida con React + Vite, animaciones con GSAP + ScrollTrigger y smooth scroll con Lenis. Sin librerías de UI (todo CSS propio).
 
 ---
 
