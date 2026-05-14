@@ -30,12 +30,11 @@
   height: 32px;
   display: grid;
   place-items: center;
-  color: var(--color-text-primary);
-  transition: color var(--duration-base) ease;
+  transition: filter var(--duration-base) ease;
 }
 
 .footer__logo-row:hover .footer__logo {
-  color: var(--color-accent-warm);
+  filter: drop-shadow(0 0 8px rgba(201, 169, 110, 0.55));
 }
 
 .footer__brand-text {
